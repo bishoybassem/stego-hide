@@ -146,7 +146,9 @@ public class StegoImage {
 		int[] block;
 		for (int i = 0; i < pixels.length; i++) {
 			for (int j = WINDOW_SIZES[window][0] / 2; j < pixels[0].length - WINDOW_SIZES[window][0] / 2; j += WINDOW_SIZES[window][0]) {
-				for (int k = WINDOW_SIZES[window][1] / 2 + 1; k < pixels[0][0].length - WINDOW_SIZES[window][1] / 2; k += WINDOW_SIZES[window][1]) {
+				for (int k = WINDOW_SIZES[window][1] / 2; k < pixels[0][0].length - WINDOW_SIZES[window][1] / 2; k += WINDOW_SIZES[window][1]) {
+					if (j == WINDOW_SIZES[window][0] / 2 && k == WINDOW_SIZES[window][1] / 2)
+						continue;
 					block = new int[]{i, j, k};
 					if (!areBlockPixelsEqual(block, window)) {
 						blocks.add(block);
