@@ -36,7 +36,7 @@ public class StegoImage {
 	
 	public BufferedImage embed(byte[] bytes, int seed) throws Exception {
 		if (mode != EMBED_MODE)
-			throw new IllegalStateException();
+			throw new IllegalStateException("This instance's mode is initialized to embed mode");
 		
 		boolean[] bits = new boolean[16 + 8 * bytes.length];
 		System.arraycopy(StegoTools.toBitArray(bytes.length, 16), 0, bits, 0, 16);
@@ -53,7 +53,7 @@ public class StegoImage {
 		}
 		
 		if (window == -1)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Data size exceeds the hide capacity");
 		
 		hideBlocks = new ArrayList<int[]>(hideBlocksList.get(window));
 		pixels = getPixels();
@@ -100,7 +100,7 @@ public class StegoImage {
 	
 	public byte[] extract(int seed) throws Exception {
 		if (mode != EXTRACT_MODE)
-			throw new IllegalStateException();
+			throw new IllegalStateException("This instance's mode is initialized to extract mode");
 		
 		int length = Integer.parseInt(extractHelper(2, seed), 2);
 		return StegoTools.toBytes(extractHelper(length + 2, seed).substring(16));
