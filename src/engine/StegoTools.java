@@ -13,19 +13,19 @@ public class StegoTools {
 		return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
 	}
 	
-	public static String toBinaryString(int number, int length) {
-		String binary = Integer.toBinaryString(number);
-		if (binary.length() > length)
-			return binary.substring(binary.length() - length);
-		if (binary.length() < length)
-			return String.format("%0" + (length - binary.length()) + "d", 0) + binary;
-		return binary;
+	public static boolean[] toBitArray(int number, int length) {
+		boolean[] bits = new boolean[length];
+		for (int i = bits.length - 1; i >= 0; i--) {
+			bits[i] = number % 2 == 1;
+			number = number / 2 ;
+		}
+		return bits;
 	}
 	
-	public static String toBitStream(byte[] bytes) throws Exception {
-		String bits = "";
+	public static boolean[] toBitArray(byte[] bytes) throws Exception {
+		boolean[] bits = new boolean[bytes.length * 8];
 		for (int i = 0; i < bytes.length; i++) {
-			bits += toBinaryString(bytes[i], 8);
+			System.arraycopy(toBitArray(bytes[i], 8), 0, bits, i * 8, 8);
 		}
 		return bits;
 	}

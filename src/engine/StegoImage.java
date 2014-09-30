@@ -38,12 +38,15 @@ public class StegoImage {
 		if (mode != EMBED_MODE)
 			throw new IllegalStateException();
 		
-		String bits = StegoTools.toBinaryString(bytes.length, 16) + StegoTools.toBitStream(bytes);
+		boolean[] bits = new boolean[16 + 8 * bytes.length];
+		System.arraycopy(StegoTools.toBitArray(bytes.length, 16), 0, bits, 0, 16);
+		System.arraycopy(StegoTools.toBitArray(bytes), 0, bits, 16, 8 * bytes.length);
+		
 		int min = Integer.MAX_VALUE;
 		List<int[]> hideBlocks;
 		for (int i = 0; i < hideBlocksList.size(); i++) {
 			hideBlocks = hideBlocksList.get(i);
-			if (hideBlocks.size() > bits.length() && min > hideBlocks.size()) {
+			if (hideBlocks.size() > bits.length && min > hideBlocks.size()) {
 				min = hideBlocks.size();
 				window = i;
 			}
@@ -59,9 +62,9 @@ public class StegoImage {
 		swaps = 0;
 		Random gen = new Random(seed);
 		int index;
-		for (int i = 0; i < bits.length(); i++) {
+		for (int i = 0; i < bits.length; i++) {
 			index = gen.nextInt(hideBlocks.size());
-			embedHelper(hideBlocks.remove(index), bits.charAt(i) == '1');
+			embedHelper(hideBlocks.remove(index), bits[i]);
 		}
 		return getImage();
 	}
