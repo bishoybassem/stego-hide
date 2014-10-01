@@ -42,6 +42,8 @@ public class StegoImage {
 		System.arraycopy(StegoTools.toBitArray(bytes.length, 16), 0, bits, 0, 16);
 		System.arraycopy(StegoTools.toBitArray(bytes), 0, bits, 16, 8 * bytes.length);
 		
+		//String bits = StegoTools.toBinaryString(bytes.length, 16) + StegoTools.toBitStream(bytes); 
+		
 		int min = Integer.MAX_VALUE;
 		List<int[]> hideBlocks;
 		for (int i = 0; i < hideBlocksList.size(); i++) {
@@ -112,7 +114,7 @@ public class StegoImage {
 		int index, middle, median;
 		int[] block;
 		char[] bits = new char[nBytes * 8];
-		for (int i = 0; i < nBytes * 8; i++) {
+		for (int i = 0; i < bits.length; i++) {
 			index = gen.nextInt(hideBlocks.size());
 			block = hideBlocks.remove(index);
 			middle = pixels[block[0]][block[1]][block[2]] & 0xFF;
