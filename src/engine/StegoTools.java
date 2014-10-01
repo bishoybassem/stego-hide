@@ -15,9 +15,14 @@ public class StegoTools {
 	
 	public static boolean[] toBitArray(int number, int length) {
 		boolean[] bits = new boolean[length];
+		boolean negative = number < 0;
+		number = Math.abs(number);
+		boolean reverse = false;
 		for (int i = bits.length - 1; i >= 0; i--) {
-			bits[i] = number % 2 == 1;
+			bits[i] = number % 2 == (reverse ? 0 : 1);
 			number = number / 2 ;
+			if (negative && bits[i])
+				reverse = true;
 		}
 		return bits;
 	}
