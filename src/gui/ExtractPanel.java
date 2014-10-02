@@ -99,7 +99,7 @@ public class ExtractPanel extends JPanel {
 		try {
 			seedValue = Integer.parseInt(seed.getText());
 		} catch(NumberFormatException ex) {
-			((StegoHide)getTopLevelAncestor()).showErrorMessage("Please enter a valid seed number!");
+			((StegoHide)getTopLevelAncestor()).showErrorMessage("Please enter a valid number in the seed field!");
 			return;
 		}
 		
