@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import engine.StegoImage;
 
 @SuppressWarnings("serial")
-public class EmbedPanel extends JPanel {
+public class HidePanel extends JPanel {
 	
 	private StegoImage stegoImg;
 	private JTextField imgName;
@@ -33,7 +33,7 @@ public class EmbedPanel extends JPanel {
 	private JTextField seed;
 	private File embedFile;
 	
-	public EmbedPanel() {
+	public HidePanel() {
 		super(new BorderLayout(0, 10));
 		
 		imgName = new JTextField(15);
@@ -88,12 +88,12 @@ public class EmbedPanel extends JPanel {
 			
 		});
 		
-		JButton embed = new JButton("Embed File");
-		embed.setFocusable(false);
-		embed.addActionListener(new ActionListener() {
+		JButton hide = new JButton("Hide File");
+		hide.setFocusable(false);
+		hide.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				embed();
+				hideFile();
 			}
 			
 		});
@@ -126,11 +126,11 @@ public class EmbedPanel extends JPanel {
 		p4.add(p3, BorderLayout.EAST);
 		
 		add(p4);
-		add(embed, BorderLayout.SOUTH);
+		add(hide, BorderLayout.SOUTH);
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	}
 	
-	public void embed() {		
+	public void hideFile() {		
 		if (stegoImg == null) {
 			((StegoHide)getTopLevelAncestor()).showErrorMessage("Please select a cover image!");
 			return;

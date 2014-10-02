@@ -57,7 +57,7 @@ public class ExtractPanel extends JPanel {
 		extract.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
-				extract();
+				extractFile();
 			}
 			
 		});
@@ -89,7 +89,7 @@ public class ExtractPanel extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	}
 	
-	public void extract() {
+	public void extractFile() {
 		if (stegoImg == null) {
 			((StegoHide)getTopLevelAncestor()).showErrorMessage("Please select an image!");
 			return;

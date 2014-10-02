@@ -71,7 +71,7 @@ public class StegoHide extends JFrame {
 		aboutPanel.add(p1);
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.add("  Embed  ", new EmbedPanel());
+		tabbedPane.add("  Hide  ", new HidePanel());
 		tabbedPane.add("  Extract  ", new ExtractPanel());
 		tabbedPane.add("  About  ", aboutPanel);
 		tabbedPane.setFocusable(false);
