@@ -29,12 +29,12 @@ public class StegoImage {
 				hideBlocksList.add(getHideBlocks(i));
 			}
 		} else {
-			window = extractWindow();
+			window = extractWindowIndex();
 			hideBlocksList.add(getHideBlocks(window));
 		}	
 	}
 	
-	public BufferedImage embed(byte[] bytes, int seed) throws Exception {
+	public BufferedImage hide(byte[] bytes, int seed) throws Exception {
 		if (mode != HIDE_MODE)
 			throw new IllegalStateException("This instance's mode is initialized to embed mode");
 		
@@ -57,19 +57,19 @@ public class StegoImage {
 		
 		hideBlocks = new ArrayList<int[]>(hideBlocksList.get(window));
 		pixels = getPixels();
-		embedWindow();
+		hideWindowIndex();
 		
 		swaps = 0;
 		Random gen = new Random(seed);
 		int index;
 		for (int i = 0; i < bits.length; i++) {
 			index = gen.nextInt(hideBlocks.size());
-			embedHelper(hideBlocks.remove(index), bits[i]);
+			hideHelper(hideBlocks.remove(index), bits[i]);
 		}
 		return getImage();
 	}
 	
-	private void embedHelper(int[] block, boolean bit) {
+	private void hideHelper(int[] block, boolean bit) {
 		int median = getMedian(block);
 		int middle = pixels[block[0]][block[1]][block[2]] & 0xFF;
 		if (!bit && middle != median)
@@ -122,7 +122,7 @@ public class StegoImage {
 		return new String(bits);
 	}
 	
-	private void embedWindow() {
+	private void hideWindowIndex() {
 		if (pixels.length < 3) {
 			pixels[0][0][0] = (byte)((pixels[0][0][0] & 0xF8) | window);
 			return;
@@ -132,7 +132,7 @@ public class StegoImage {
 		}
 	}
 	
-	private int extractWindow() {
+	private int extractWindowIndex() {
 		if (pixels.length < 3)
 			return pixels[0][0][0] & 0x07;
 		

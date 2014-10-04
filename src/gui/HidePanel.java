@@ -157,7 +157,7 @@ public class HidePanel extends JPanel {
 			System.arraycopy(extBytes, 0, bytes, 0, extBytes.length);
 			System.arraycopy(fileBytes, 0, bytes, extBytes.length, fileBytes.length);
 			
-			BufferedImage newImg = stegoImg.embed(bytes, seedValue);
+			BufferedImage newImg = stegoImg.hide(bytes, seedValue);
 			String newName = imgName.getText().substring(0, imgName.getText().lastIndexOf('.'));
 			newName += "Stego." + imgFormat;
 			
