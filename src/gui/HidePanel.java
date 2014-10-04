@@ -60,7 +60,7 @@ public class HidePanel extends JPanel {
 					return;
 				
 				try {
-					stegoImg = new StegoImage(ImageIO.read(image), StegoImage.EMBED_MODE);
+					stegoImg = new StegoImage(ImageIO.read(image), StegoImage.HIDE_MODE);
 					imgName.setText(image.getName());
 					capacity.setText(stegoImg.getMaxHideCapacity() + " Bytes");
 					imgFormat = getImageFormat(image);

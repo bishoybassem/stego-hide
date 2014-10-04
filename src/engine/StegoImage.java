@@ -14,7 +14,7 @@ public class StegoImage {
 	private int swaps;
 	private int mode;
 	
-	public static final int EMBED_MODE = 0;
+	public static final int HIDE_MODE = 0;
 	public static final int EXTRACT_MODE = 1;
 	private static final int[][] WINDOW_SIZES = {{1, 3}, {3, 1}, {3, 3}, {1, 5}, {5, 1}, {5, 5}, {3, 5}, {5, 3}};
 	
@@ -23,7 +23,7 @@ public class StegoImage {
 		this.mode = mode;
 		pixels = getPixels();
 		hideBlocksList = new ArrayList<List<int[]>>();
-		if (mode == EMBED_MODE) {
+		if (mode == HIDE_MODE) {
 			window = -1;
 			for (int i = 0; i < WINDOW_SIZES.length; i++) {
 				hideBlocksList.add(getHideBlocks(i));
@@ -35,14 +35,12 @@ public class StegoImage {
 	}
 	
 	public BufferedImage embed(byte[] bytes, int seed) throws Exception {
-		if (mode != EMBED_MODE)
+		if (mode != HIDE_MODE)
 			throw new IllegalStateException("This instance's mode is initialized to embed mode");
 		
 		boolean[] bits = new boolean[16 + 8 * bytes.length];
 		System.arraycopy(StegoTools.toBitArray(bytes.length, 16), 0, bits, 0, 16);
 		System.arraycopy(StegoTools.toBitArray(bytes), 0, bits, 16, 8 * bytes.length);
-		
-		//String bits = StegoTools.toBinaryString(bytes.length, 16) + StegoTools.toBitStream(bytes); 
 		
 		int min = Integer.MAX_VALUE;
 		List<int[]> hideBlocks;
