@@ -24,20 +24,20 @@ import javax.swing.text.StyledDocument;
 @SuppressWarnings("serial")
 public class StegoHide extends JFrame {
 
-	private static ImageIcon errorIcon;
-	private static ImageIcon infoIcon;
-	private static ImageIcon safe1Icon;
-	private static ImageIcon safe2Icon;
-	private static ImageIcon safe3Icon;
-	private static String aboutText;
+	private static final ImageIcon ERROR_ICON;
+	private static final ImageIcon INFO_ICON;
+	private static final ImageIcon SAFE1_ICON;
+	private static final ImageIcon SAFE2_ICON;
+	private static final ImageIcon SAFE3_ICON;
+	private static final String ABOUT_TEXT;
 	
 	static {
-		errorIcon = new ImageIcon(StegoHide.class.getResource("resources/error.png"));
-		infoIcon = new ImageIcon(StegoHide.class.getResource("resources/info.png"));
-		safe1Icon = new ImageIcon(StegoHide.class.getResource("resources/safe1.png"));
-		safe2Icon = new ImageIcon(StegoHide.class.getResource("resources/safe2.png"));
-		safe3Icon = new ImageIcon(StegoHide.class.getResource("resources/safe3.png"));
-		aboutText = readTextFile("resources/about.txt");
+		ERROR_ICON = new ImageIcon(StegoHide.class.getResource("resources/error.png"));
+		INFO_ICON = new ImageIcon(StegoHide.class.getResource("resources/info.png"));
+		SAFE1_ICON = new ImageIcon(StegoHide.class.getResource("resources/safe1.png"));
+		SAFE2_ICON = new ImageIcon(StegoHide.class.getResource("resources/safe2.png"));
+		SAFE3_ICON = new ImageIcon(StegoHide.class.getResource("resources/safe3.png"));
+		ABOUT_TEXT = readTextFile("resources/about.txt");
 	}
 	
 	public StegoHide() {
@@ -53,14 +53,14 @@ public class StegoHide extends JFrame {
 		textPane.setEditable(false);
 		textPane.setFocusable(false);
 		textPane.setOpaque(false);
-		textPane.setText(aboutText);
+		textPane.setText(ABOUT_TEXT);
 		
 		StyledDocument doc = textPane.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 		
-		JLabel icon = new JLabel(safe3Icon);
+		JLabel icon = new JLabel(SAFE3_ICON);
 		icon.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		
 		JPanel p1 = new JPanel(new BorderLayout());
@@ -77,7 +77,7 @@ public class StegoHide extends JFrame {
 		tabbedPane.setFocusable(false);
 		tabbedPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-		setIconImages(Arrays.asList(safe1Icon.getImage(), safe2Icon.getImage()));
+		setIconImages(Arrays.asList(SAFE1_ICON.getImage(), SAFE2_ICON.getImage()));
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -93,7 +93,7 @@ public class StegoHide extends JFrame {
 		imageChooser.addChoosableFileFilter(new FileNameExtensionFilter("BMP files", "bmp"));
 		imageChooser.addChoosableFileFilter(new FileNameExtensionFilter("GIF files", "gif"));
 		
-		int returnVal = imageChooser.showDialog(null, "Open");
+		int returnVal = imageChooser.showDialog(this, "Open");
 	    if (returnVal == JFileChooser.APPROVE_OPTION)
 	    	return imageChooser.getSelectedFile();
 	    
@@ -101,11 +101,11 @@ public class StegoHide extends JFrame {
 	}
 	
 	public void showErrorMessage(String error) {
-		JOptionPane.showMessageDialog(null, error,  "Error", JOptionPane.ERROR_MESSAGE, errorIcon);
+		JOptionPane.showMessageDialog(null, error,  "Error", JOptionPane.ERROR_MESSAGE, ERROR_ICON);
 	}
 	
 	public void showInformationMessage(String message) {
-		JOptionPane.showMessageDialog(null, message,  "Information", JOptionPane.INFORMATION_MESSAGE, infoIcon);
+		JOptionPane.showMessageDialog(null, message,  "Information", JOptionPane.INFORMATION_MESSAGE, INFO_ICON);
 	}
 	
 	public static String readTextFile(String path) {
