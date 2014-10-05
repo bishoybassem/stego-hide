@@ -29,8 +29,12 @@ public class HidePanel extends JPanel {
 	
 	private StegoImage stegoImg;
 	private JTextField imgName;
-	private String imgFormat;
+	private JTextField capacity;
 	private JTextField seed;
+	private JTextField fileName;
+	private JTextField fileSize;
+	private String imgFormat;
+
 	private File embedFile;
 	
 	public HidePanel() {
@@ -39,13 +43,13 @@ public class HidePanel extends JPanel {
 		imgName = new JTextField(15);
 		imgName.setEnabled(false);
 		
-		final JTextField capacity = new JTextField(15);
+		capacity = new JTextField(15);
 		capacity.setEnabled(false);
 		
-		final JTextField fileName = new JTextField(15);
+		fileName = new JTextField(15);
 		fileName.setEnabled(false);
 		
-		final JTextField fileSize = new JTextField(15);
+		fileSize = new JTextField(15);
 		fileSize.setEnabled(false);
 		
 		seed = new JTextField(15);
@@ -76,14 +80,7 @@ public class HidePanel extends JPanel {
 		browseFile.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser jfc = new JFileChooser();
-				int returnVal = jfc.showDialog(null, "Open");
-			    if (returnVal != JFileChooser.APPROVE_OPTION)
-			    	return;
-			    
-			    embedFile = jfc.getSelectedFile();
-			    fileName.setText(embedFile.getName());
-			    fileSize.setText(embedFile.length() + " Bytes");
+				selectFile();
 			}
 			
 		});
@@ -130,7 +127,18 @@ public class HidePanel extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 	}
 	
-	public void hideFile() {		
+	private void selectFile() {
+		JFileChooser jfc = new JFileChooser();
+		int returnVal = jfc.showDialog(this, "Open");
+	    if (returnVal != JFileChooser.APPROVE_OPTION)
+	    	return;
+	    
+	    embedFile = jfc.getSelectedFile();
+	    fileName.setText(embedFile.getName());
+	    fileSize.setText(embedFile.length() + " Bytes");
+	}
+	
+	private void hideFile() {		
 		if (stegoImg == null) {
 			((StegoHide)getTopLevelAncestor()).showErrorMessage("Please select a cover image!");
 			return;
